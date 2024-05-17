@@ -63,7 +63,7 @@ class RewriteRenderer extends BaseRenderer {
       defaultIntermediateCatchEventOpacity: 1,
       defaultTaskOpacity: 0,
       defaultLabelOpacity: 1,
-      defaultGatewayOpacity: 0.2,
+      defaultGatewayOpacity: 0,
       defaultSequenceOpacity: 1
     };
     const {
@@ -88,6 +88,8 @@ class RewriteRenderer extends BaseRenderer {
       defaultGatewayOpacity,
       defaultSequenceOpacity
     } = { ...presetOpacity, ...config };
+
+    //alert(defaultStartEventOpacity)
 
     const useCurve = config?.useCurve || false;
 

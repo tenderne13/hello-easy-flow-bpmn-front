@@ -9,6 +9,7 @@
 
     <bpmn-settings />
     <bpmn-context-menu />
+    <easy-flow-panel :xml.sync="xmlString"/>
   </div>
 </template>
 
@@ -19,9 +20,10 @@ import { mapGetters } from "vuex";
 import BpmnToolbar from "../packages/components/Toolbar";
 import BpmnContextMenu from "@packages/components/ContextMenu/ContextMenu";
 import BpmnPanel from "@packages/components/Panel";
+import EasyFlowPanel from "@packages/components/EasyFlowPanel/EasyFlowPanel";
 export default {
   name: "App",
-  components: { BpmnPanel, BpmnContextMenu, BpmnToolbar, BpmnSettings, BpmnDesigner },
+  components: { EasyFlowPanel, BpmnPanel, BpmnContextMenu, BpmnToolbar, BpmnSettings, BpmnDesigner },
   data() {
     return {
       xmlString: undefined
