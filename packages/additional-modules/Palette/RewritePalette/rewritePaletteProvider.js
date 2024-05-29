@@ -1,6 +1,12 @@
 import PaletteProvider from "bpmn-js/lib/features/palette/PaletteProvider";
 import { assign } from "min-dash";
 import { createAction } from "../utils";
+import { getModeler, getProcessEngine } from "@packages/bpmn-utils/BpmnDesignerUtils";
+import {
+  addExtensionProperty,
+  getExtensionProperties,
+  removeExtensionProperty
+} from "@packages/bo-utils/extensionPropertiesUtil";
 
 class RewritePaletteProvider extends PaletteProvider {
   constructor(palette, create, elementFactory, spaceTool, lassoTool, handTool, globalConnect) {
@@ -30,7 +36,10 @@ class RewritePaletteProvider extends PaletteProvider {
         type: "bpmn:SubProcess",
         x: 0,
         y: 0,
-        isExpanded: true
+        isExpanded: true,
+        extraProp: {
+          "type": "并行流"
+        }
       });
 
       const startEvent = elementFactory.createShape({
@@ -42,9 +51,45 @@ class RewritePaletteProvider extends PaletteProvider {
 
       create.start(event, [subProcess, startEvent], {
         hints: {
+          autoSelect: [subProcess]
+        }
+      });
+    }
+
+
+    function createParallerSubprocess(event) {
+      console.log("======>>>>>>>>看这里啊反反复复", elementFactory);
+      const subProcess = elementFactory.createShape({
+        type: "bpmn:SubProcess",
+        x: 0,
+        y: 0,
+        height: 250,
+        width: 250,
+        isExpanded: true,
+        title:"PARALLEL"
+      });
+
+      addExtensionProperty(subProcess,{"name": "type","value":"PARALLEL"});
+      const modeling =  getModeler.getModeling();
+      modeling.setColor(subProcess, {
+          stroke: 'black', // 边框颜色
+          fill: 'green', // 填充颜色，即背景颜色
+      });
+
+      console.log(subProcess);
+      const startEvent = elementFactory.createShape({
+        type: "bpmn:StartEvent",
+        x: 100,
+        y: 30,
+        parent: subProcess
+      });
+
+      create.start(event, [subProcess, startEvent], {
+        hints: {
           autoSelect: [startEvent]
         }
       });
+      console.log("=======>>>>>>>subProcess", subProcess);
     }
 
     assign(actions, {
@@ -170,6 +215,15 @@ class RewritePaletteProvider extends PaletteProvider {
         action: {
           dragstart: createSubprocess,
           click: createSubprocess
+        }
+      },
+      "create.subprocess-parallel": {
+        group: "activity",
+        className: "bpmn-icon-subprocess-expanded",
+        title: "并行子流程流程",
+        action: {
+          dragstart: createParallerSubprocess,
+          click: createParallerSubprocess
         }
       }
     });

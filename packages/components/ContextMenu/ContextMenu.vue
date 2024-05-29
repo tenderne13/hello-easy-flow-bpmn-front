@@ -1,6 +1,6 @@
 <template>
   <div class="bpmn-context-menu" v-if="showPopover" :style="currentPosition">
-    <div class="context-menu_header">{{ contextMenuTitle }}</div>
+    <div class="context-menu_header">{{ contextMenuTitle }} 嗯？？？</div>
     <div class="context-menu_body">
       <div v-for="item in currentReplaceOptions" :key="item.actionName" class="context-menu_item">
         <i :class="`context-menu_item_icon ${item.className}`"></i>
@@ -45,6 +45,7 @@ export default {
     triggerAction(entry, event) {
       try {
         const { appendAction, replaceAction } = contextMenuActions();
+        console.log("======>", entry, this._currentElement);
         this.isAppend ? appendAction(entry.target, event) : replaceAction(entry.target, this._currentElement);
         this.showPopover = false;
       } catch (e) {

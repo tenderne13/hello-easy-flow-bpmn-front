@@ -2,7 +2,7 @@ export const defaultSettings = {
   processId: `Process_${new Date().getTime()}`,
   processName: `业务流程`,
   processEngine: "camunda",
-  paletteMode: "enhancement",
+  paletteMode: "rewrite",
   penalMode: "custom",
   contextPadMode: "enhancement",
   rendererMode: "rewrite",

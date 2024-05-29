@@ -2,7 +2,7 @@
   <div class="bpmn-panel" ref="panel">
     <div class="panel-header">
       <bpmn-icon :name="bpmnIconName" />
-      <p>{{ bpmnElementName }}</p>
+      <p>{{ bpmnElementName }}  我在那</p>
       <p>{{ customTranslate(currentElementType || "Process") }}</p>
     </div>
     <el-collapse>
